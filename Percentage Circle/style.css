@@ -1,0 +1,43 @@
+* {
+  font-family: Cambay;
+}
+
+section {
+    padding: 20px 20px;
+}
+
+audio, canvas, progress, video {
+    display: block;
+    vertical-align: baseline;
+    margin: 0 auto;
+    position: relative;
+}
+
+.chart {
+	margin: 0 20px;
+	height: 170px;
+	width: 170px;
+	position: relative;
+	display: inline-block;
+}
+
+.number-of-percents {
+	width: 100%;
+	text-align: center;
+	position: absolute;
+	font-family: Cambay;
+	font-size: 40px;
+	margin: 0;
+	padding-top: 5px;
+    top: 50%;
+    transform: translateY(-80%);
+}
+
+.chart-title {
+	min-width: 100%;
+	position: relative;
+	text-align: center;
+	font-family: Cambay;
+	font-size: 25px;
+	margin: 0;
+}

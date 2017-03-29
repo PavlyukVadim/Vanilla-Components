@@ -2,3 +2,34 @@
   font-family: Cambay;
 }
 
+@keyframes shiftdigits {
+  from {
+    top: 0em;
+  }
+  to {
+  	top: -10em;
+  }
+}
+
+.count-up-animate {
+  animation-name: shiftdigits;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+#count-up {
+	position: absolute;
+	width: 100%;
+	font-size: 30px;
+	height: 1em;
+	overflow: hidden;
+}
+
+#count-up .list-of-digits {
+	margin: 0;
+	padding: 0; 
+	list-style: none;
+	position: absolute;
+	top: 0em;
+	font-weight: bold;
+}

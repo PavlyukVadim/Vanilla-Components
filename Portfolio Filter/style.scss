@@ -19,6 +19,21 @@ $yellow: #ffe600;
     }
   }
 
+@keyframes zoomOut {
+	from {
+		opacity: 1;
+	}
+
+	50% {
+		opacity: 0;
+		transform: scale3d(.3, .3, .3);
+	}
+
+	to {
+		opacity: 0;
+	}
+}
+
 .container {
 	max-width: 1200px;
 	width: 90%;
@@ -66,11 +81,17 @@ $yellow: #ffe600;
 
 			transition: 1s;
 		}
-
+ 
 
 		.zoomInUp {
 		    animation-name: zoomInUp;
 		    animation-duration: 1s;
+		}
+
+		.zoomOut {
+			animation-name: zoomOut;
+			animation-duration: 1s;
+			animation-fill-mode: forwards;
 		}
 
 	}
@@ -106,7 +127,7 @@ $items: 12;
     .gi-#{$key}-#{$i} {
       @include break($key) {
         width: #{$i / $items * 100%};
-        display: inline-block;
+        /*display: inline-block;*/
         float: left;
       }
     }

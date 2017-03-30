@@ -1,20 +1,13 @@
 window.onload = function() {
+	
 	var chooseButtons = document.getElementsByClassName('btn-choose-cat');
 	var portfolioTiles = document.getElementsByClassName('tile');
-
-	var i;
-	var btnRel;
-
 	var windowWidth = window.innerWidth;
 	var tilesWidth = portfolioTiles[0].clientWidth;
 	var numberOfTilesInRow = Math.floor(windowWidth / tilesWidth);
-
 	var fillingOfTiles = createArrayOfFillingOfTiles(numberOfTilesInRow, portfolioTiles.length);
-
-	console.log(fillingOfTiles);
-
-
-
+	var btnRel;
+	var i;
 
 	for (i = 0; i < chooseButtons.length; i++) {
 		chooseButtons[i].onclick = function() {
@@ -22,12 +15,13 @@ window.onload = function() {
 	    this.classList.add('active-btn');
 	    btnRel = this.dataset.rel;
 	    togglePortfolioTilesByRel(btnRel)
-
 		} 
 	}
 
+
 	function removeClassNameInArrayOfElements(arr, className) {
 	  var i = 0;
+	  
 	  for (i = 0; i < arr.length; i++) {
 			arr[i].classList.remove(className);
 		}
@@ -37,34 +31,31 @@ window.onload = function() {
 	function togglePortfolioTilesByRel(className) {
 		var i = 0;
 		var row = 0, column = 0;
+	  
 	  for (i = 0; i < portfolioTiles.length; i++) {
-	  	//portfolioTiles[i].style.display = 'none'; 
 	  	element = portfolioTiles[i];
 	  	row = Math.floor(i / numberOfTilesInRow);
 			column = i % numberOfTilesInRow;
-	  	console.log(row, column);
 	  	if (element.classList.contains(className) || className === 'all') {
-					/*element.style.width = 'block'; */
-					
+					element.style.transform = 'translateX(0px) translateY(0px)';
+					element.classList.add('zoomIn');
+					element.classList.remove('zoomOut');
 					fillingOfTiles[row][column] = 1;
 		    } else { 
 		    	element.classList.add('zoomOut');
-			fillingOfTiles[row][column] = 0;
-		    	
-		    	/*setTimeout(function(element) {
-				    element.style.width = '0';
-		    		element.style.heigth = '0';  
-			  	}, 1000, element);*/
+		    	element.classList.remove('zoomIn');
+		    	fillingOfTiles[row][column] = 0;
 		    }
 		}
 		shiftTiles();
-		console.log(fillingOfTiles);
 	}
+
 
 	function createArrayOfFillingOfTiles(numberOfTilesInRow, numberOfTiles) {
 	  var arr = [];
 	  var numberOfRows = Math.ceil(numberOfTiles / numberOfTilesInRow);
 	  var i, j;
+	  
 	  for (i = 0; i < numberOfRows; i++) {
 	  	arr[i] = [];
 	  	for (j = 0; j < numberOfTilesInRow; j++) {
@@ -74,36 +65,38 @@ window.onload = function() {
 	  return arr;
 	}
 
+
 	function shiftTiles() {
 		var i, j;
 		var row;
+		var pos;
+
 		for (i = 0; i < fillingOfTiles.length; i++) {
 	    row = fillingOfTiles[i];
 			for (j = 0; j < row.length; j++) {
-				var el = row[j];
-				if (el && getIndexOfNull() < j) {
-	        portfolioTiles[j].style.transform = 'translateX(' + (getIndexOfNull() - j) * tilesWidth + 'px)';
-	        fillingOfTiles[0][getIndexOfNull()] = 1;
-	        fillingOfTiles[0][j] = 0;
+			  pos = getIndexOfNull();
+				if (row[j] && pos.y * numberOfTilesInRow + pos.x < i * numberOfTilesInRow + j) {
+	        portfolioTiles[i * numberOfTilesInRow + j].style.transform = 'translateX(' +  (pos.x - j) * tilesWidth + 'px) translateY(' +  (pos.y - i) * 200 + 'px)';
+	        fillingOfTiles[pos.y][pos.x] = 1;
+	        fillingOfTiles[i][j] = 0;
 				}
-
-				console.log('Data', el, getIndexOfNull());
 			}
 		}
 	}
 
+
 	function getIndexOfNull() {
 	  var i, j;
 		var row;
+
 		for (i = 0; i < fillingOfTiles.length; i++) {
 	    row = fillingOfTiles[i];
 			for (j = 0; j < row.length; j++) {
-				var el = row[j];
-				if (!el) {
-	         return j;
+				if (!row[j]) {
+	        return {x: j, y: i};
 				}
 			}
 		}
-		return Infinity;	
+		return {x: Infinity, y: Infinity};	
 	}
 }

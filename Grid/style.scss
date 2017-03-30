@@ -1,0 +1,34 @@
+$breakpoints: (
+  sm: 768px,
+  md: 992px,
+  lg: 1200px
+);
+
+@mixin break($size) {  
+  @media (min-width: map-get($breakpoints, $size)) {
+    @content;
+  }
+}
+
+$items: 12;
+
+
+@each $key, $value in $breakpoints {
+  @for $i from 1 through $items {
+    .gi-#{$key}-#{$i} {
+      width: 100%
+    }
+  }
+}
+
+@each $key, $value in $breakpoints {
+  @for $i from 1 through $items {
+    .gi-#{$key}-#{$i} {
+      @include break($key) {
+        width: #{$i / $items * 100%};
+        display: inline-block;
+        float: left;
+      }
+    }
+  }
+}

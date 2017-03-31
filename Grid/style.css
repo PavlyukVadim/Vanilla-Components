@@ -322,5 +322,8 @@
     display: inline-block;
     float: left; } }
 
-/*# sourceMappingURL=style.css.map */
+.container {
+  max-width: 1200px;
+  margin: 0 auto; }
 
+/*# sourceMappingURL=style.css.map */

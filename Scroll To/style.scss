@@ -52,6 +52,10 @@ $toggle-color: #fff;
   
   display: inline-block;
   
+  &:hover {
+    cursor: pointer;
+  }
+
   @media screen and (max-width: 768px) { 
     display: block;
     font-size: 1.2em;
@@ -62,16 +66,15 @@ $toggle-color: #fff;
     }
   }
 
- 
-
   a {
     margin-right: 15px;
     color: #fff;
     text-decoration: none;
     transition: color .2s;
+    display: block;
 
     &:hover {
-      color: $yellow;
+      /*color: $yellow;*/
     }
   }
 }

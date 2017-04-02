@@ -324,6 +324,7 @@
 
 .container {
   max-width: 1200px;
+  width: 80%;
   margin: 0 auto; }
   .container .row ~ * {
     clear: both; }

@@ -35,7 +35,9 @@ $items: 12;
 
 .container {
   max-width: 1200px;
+  width: 80%;
   margin: 0 auto;
+
 
   .row ~ * {
     clear: both;

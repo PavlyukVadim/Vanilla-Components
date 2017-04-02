@@ -56,6 +56,7 @@ $dark: #131316;
     .section-title {
       text-align: center;
       text-transform: uppercase;
+      margin: 0;
     }
 
     .section-description{
@@ -101,6 +102,7 @@ $dark: #131316;
           position: absolute;
           left: 0;
           width: 100%;
+          transition: opacity 1s;
 
           .description {
             display: none;
@@ -138,6 +140,7 @@ $dark: #131316;
           
         .arrow-up {
           opacity: 1;
+          transition: opacity 1s;
         }
       }
     }

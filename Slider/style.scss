@@ -15,10 +15,13 @@ body {
 	.container {
 
 		.slider-wrapper {
-			width: 600px;
+			width: 100vw;
 			overflow-x: hidden;
 
 			#slider {
+				user-select: none;
+				-webkit-user-select: none;
+				overflow: hidden;
 
 				&:hover {
 					cursor: pointer;
@@ -29,7 +32,7 @@ body {
 				.slide {
 					display: inline-block;
 					float: left;
-					width: 600px;
+					width: 100vw;
 					height: 500px;
 				}
 

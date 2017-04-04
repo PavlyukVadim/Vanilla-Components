@@ -107,4 +107,37 @@ window.onload = function() {
     }
   }
 
+  
+  if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    var touchStartX = 0;
+    slider.addEventListener('touchstart', function(e) {
+      var touchobj = e.changedTouches[0];
+      touchStartX = parseInt(touchobj.clientX);
+      e.preventDefault();
+    }, false);
+ 
+    slider.addEventListener('touchmove', function(e) {
+      var touchobj = e.changedTouches[0];
+      var diff = parseInt(touchobj.clientX) - touchStartX;
+      if(isRunning) return;
+      slider.style.transform = 'translateX(' + ( - slideWidth * (indexOfCurrentSlide + 1) + diff) + 'px)';
+      e.preventDefault();
+    }, false);
+ 
+    slider.addEventListener('touchend', function(e) {
+      var touchobj = e.changedTouches[0] // reference first touch point for this event
+      slider.style.transition = transitionRule; 
+      var diff = touchobj.clientX - touchStartX;
+      if (diff > 100) {
+        changeSlide('prev');
+      } else if (diff < -100) {
+        changeSlide('next');
+      } else {
+        slider.style.transform = 'translateX(' + ( - slideWidth * (indexOfCurrentSlide + 1)) + 'px)';   
+      } 
+      e.preventDefault();
+    }, false);  
+  }
+
+
 }

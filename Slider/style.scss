@@ -12,42 +12,40 @@ body {
 
 #slider-component {
 
-	.container {
+	.slider-wrapper {
+		width: 100vw;
+		overflow-x: hidden;
 
-		.slider-wrapper {
-			width: 100vw;
-			overflow-x: hidden;
+		#slider {
+			user-select: none;
+			-webkit-user-select: none;
+			overflow: hidden;
 
-			#slider {
-				user-select: none;
-				-webkit-user-select: none;
-				overflow: hidden;
+			&:hover {
+				cursor: pointer;
+			}
 
-				&:hover {
-					cursor: pointer;
-				}
+			width: 10000px;
 
-				width: 10000px;
+			.slide {
+				display: inline-block;
+				float: left;
+				width: 100vw;
+				height: 500px;
+			}
 
-				.slide {
-					display: inline-block;
-					float: left;
-					width: 100vw;
-					height: 500px;
-				}
+			#slide-1 {
+				background-color: red;
+			}
 
-				#slide-1 {
-					background-color: red;
-				}
+			#slide-2 {
+				background-color: green;
+			}
 
-				#slide-2 {
-					background-color: green;
-				}
-
-				#slide-3 {
-	        background-color: blue;
-				}
+			#slide-3 {
+        background-color: blue;
 			}
 		}
 	}
+		
 }

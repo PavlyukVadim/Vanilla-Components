@@ -20,6 +20,10 @@ body {
 
 			#slider {
 
+				&:hover {
+					cursor: pointer;
+				}
+
 				width: 10000px;
 
 				.slide {

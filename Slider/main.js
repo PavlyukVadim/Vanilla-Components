@@ -8,12 +8,13 @@ window.onload = function() {
   var indexOfCurrentSlide = 0;
   var slideWidth = slides[0].clientWidth;
   var numberOfSlides = slides.length;
-  var ANIMATION_DURATION = 300;
-  var isRuning = 0;
+  var ANIMATION_DURATION = 1000;
+  var isRunning = false;
+  var transitionRule = 'transform ' + Number(ANIMATION_DURATION / 1000) + 's'
 
 
   initiateSlider();
-    
+
   function initiateSlider() {
     slider.style.width = slideWidth * (numberOfSlides + 2) + 'px';
     slider.insertAdjacentElement('beforeEnd', slider.children[0].cloneNode(true));
@@ -21,50 +22,89 @@ window.onload = function() {
     slider.style.transform = 'translateX(' + ( - slideWidth) + 'px)';  
 
     setTimeout(function() {
-      slider.style.transition = 'transform .3s'; 
+      slider.style.transition = transitionRule; 
     }, 0);
   }
 
 
   prevBtn.addEventListener('click', function() {
-    if (isRuning) return;
-    if ((indexOfCurrentSlide === numberOfSlides - 1) || !indexOfCurrentSlide) {
-      slider.style.transition = 'transform .3s'; 
-    }
-    if (!indexOfCurrentSlide) {
-      setTimeout(function() {
-        slider.style.transition = 'transform 0s'; 
-        slider.style.transform = 'translateX(' + ( -  slideWidth * (numberOfSlides)) + 'px)';
-        indexOfCurrentSlide = numberOfSlides - 1; 
-      }, ANIMATION_DURATION);
-    }
-    indexOfCurrentSlide--;
-    isRuning = true;
-    slider.style.transform = 'translateX(' + ( - slideWidth * (indexOfCurrentSlide + 1)) + 'px)';
-    setTimeout(function() {
-      isRuning = false;
-    }, ANIMATION_DURATION);
+    changeSlide('prev');
   });
 
 
   nextBtn.addEventListener('click', function() {
-    if (isRuning) return;
-    if (!indexOfCurrentSlide || (indexOfCurrentSlide === numberOfSlides - 1)) {
-      slider.style.transition = 'transform .3s'; 
+    changeSlide('next');
+  });
+
+
+  function changeSlide(mode) {
+    if (isRunning) {
+      return;
+    } else if ((indexOfCurrentSlide === numberOfSlides - 1) || !indexOfCurrentSlide) {
+      slider.style.transition = transitionRule; 
     }
-    if (indexOfCurrentSlide === numberOfSlides - 1) {
-      setTimeout(function() {
-        slider.style.transition = 'transform 0s'; 
-        slider.style.transform = 'translateX(' + ( - slideWidth) + 'px)';
-        indexOfCurrentSlide = 0; 
-      }, ANIMATION_DURATION);
+
+    if (mode === 'prev') {
+      if (!indexOfCurrentSlide) {
+        setTimeout(function() {
+          slider.style.transition = '0s'; 
+          slider.style.transform = 'translateX(' + ( -  slideWidth * (numberOfSlides)) + 'px)';
+          indexOfCurrentSlide = numberOfSlides - 1; 
+        }, ANIMATION_DURATION);
+      }
+      indexOfCurrentSlide--;
+    } else if (mode === 'next') {
+      if (indexOfCurrentSlide === numberOfSlides - 1) {
+        setTimeout(function() {
+          slider.style.transition = '0s'; 
+          slider.style.transform = 'translateX(' + ( - slideWidth) + 'px)';
+          indexOfCurrentSlide = 0; 
+        }, ANIMATION_DURATION);
+      }
+      indexOfCurrentSlide++;
     }
-    indexOfCurrentSlide++;
-    isRuning = true;
+    
+    isRunning = true;
     slider.style.transform = 'translateX(' + ( - slideWidth * (indexOfCurrentSlide + 1)) + 'px)';  
     setTimeout(function() {
-      isRuning = false;
+      isRunning = false;
     }, ANIMATION_DURATION);
-  });
+
+  }
+
+
+  slider.ondragstart = function() {
+    return false;
+  };
+  
+
+  slider.onmousedown = function(e) {
+    var mouseDownX = e.pageX;
+    moveSlide(e);
+    
+    function moveSlide(e) {
+      console.log(e.pageX - mouseDownX);
+      if(isRunning) return;
+      slider.style.transform = 'translateX(' + ( - slideWidth * (indexOfCurrentSlide + 1) + e.pageX - mouseDownX) + 'px)';
+    }
+
+    document.onmousemove = function(e) {
+      moveSlide(e);
+    }
+
+    document.onmouseup = function(e) {
+      slider.style.transition = transitionRule; 
+      var diff = e.pageX - mouseDownX;
+      if (diff > 100) {
+        changeSlide('prev');
+      } else if (diff < -100) {
+        changeSlide('next');
+      } else {
+        slider.style.transform = 'translateX(' + ( - slideWidth * (indexOfCurrentSlide + 1)) + 'px)';   
+      }
+      document.onmousemove = null;
+      document.onmouseup = null;
+    }
+  }
 
 }

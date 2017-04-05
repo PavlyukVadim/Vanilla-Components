@@ -1,4 +1,5 @@
 $breakpoints: (
+  xs: 360px,
   sm: 768px,
   md: 992px,
   lg: 1200px
@@ -35,15 +36,28 @@ $items: 12;
 
 .container {
   max-width: 1200px;
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
 
-
-  .row ~ * {
-    clear: both;
+  &:before, &:after {
+    display: table;
+    content: " ";
   }
-}
 
-.container ~ * {
-  clear: both;
+  &:after {
+    clear: both;    
+  }
+
+  .row {      
+    
+    &:before, &:after {
+      display: table;
+      content: " ";
+    }
+
+    &:after {
+      clear: both;    
+    }
+
+  }
 }

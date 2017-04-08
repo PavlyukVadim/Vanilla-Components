@@ -1,8 +1,73 @@
 $yellow: #ffe600;
-
+$dark: #131316;
 
 * {
   font-family: Cambay;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+@keyframes bounceIn {
+  from, 20%, 40%, 60%, 80%, to {
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  }
+
+  0% {
+    opacity: 0;
+    transform: scale3d(.3, .3, .3);
+  }
+
+  20% {
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+
+  40% {
+    transform: scale3d(.9, .9, .9);
+  }
+
+  60% {
+    opacity: 1;
+    transform: scale3d(1.03, 1.03, 1.03);
+  }
+
+  80% {
+    transform: scale3d(.97, .97, .97);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes bounceOut {
+  20% {
+    transform: scale3d(.9, .9, .9);
+  }
+
+  50%, 55% {
+    opacity: 1;
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale3d(.3, .3, .3);
+  }
+}
+
+.bounceOut {
+  animation-name: bounceOut;
+  animation-duration: 1s;
+}
+
+.bounceIn {
+  animation-name: bounceIn;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
 }
 
 
@@ -12,3 +77,76 @@ $yellow: #ffe600;
 	margin: 0 auto;
 }
 
+#slider-reviews-component {
+	background-color: $dark;
+	width: 100%;
+
+	.container {
+
+		#slider-reviews {
+
+      overflow: hidden;
+			position: relative;
+    	padding-bottom: 30px;
+      
+      .active {
+      	height: auto;
+
+      	p {
+      		margin: 20px;
+      	}
+      }
+
+			article {
+				height: 0;
+			  opacity: 0;
+	      color: #fff;
+	      font-size: 20px;
+	      text-align: center; 
+
+	      p {
+	      	margin: 0;
+	      }
+
+	      .line {
+	      	background-color: $yellow;
+	      	height: 3px;
+	      	margin: 0 auto;
+	      	max-width: 200px;
+	      	border-radius: 6%;
+	      	width: 50%;
+	      }
+
+	      .autor {
+
+	      }
+			}
+
+			.controlrow {
+
+				bottom: 20px;
+		    position: absolute;
+		    left: 50%;
+		    transform: translateX(-50%);
+				
+				.circle {
+					display: inline-block;
+					background-color: #FFF;
+					width: 8px;
+					height: 8px;
+					margin: 0 2px;
+					border-radius: 50%;
+
+					&:hover {
+						cursor: pointer;
+					}
+				}
+
+				.active {
+					background-color: $yellow;
+				}
+
+			}
+		}
+	}
+}
